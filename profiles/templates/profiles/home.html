@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Local Stylesheet-->
+    <link rel="stylesheet" type="text/css" href="{% static 'profiles/css/style.css' %}">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <title>Home</title>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="images">
+                    <img height="350" width="10000" src="{% static 'images/profiles/land.jpg' %}"/>
+                </div>
+                <p class="pick" style="padding-top: 5%;">OPEN SOURCE GEOSPATIAL SOLUTIONS</p>
+                <div class="sizes">
+                    <div class="size">K</div>
+                    <div class="size">A</div>
+                    <div class="size">R</div>
+                    <div class="size">T</div>
+                    <div class="size">O</div>
+                    <div class="size">Z</div>
+                    <div class="size">A</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="product">
+                    <h1>Kartoza</h1>
+                    <p style="font-size: .6em; padding-bottom: 2%;" class="my-2">Unlock insights from your data with the power of GIS</p>
+                    <h4 class="my-3">What is GIS?</h4>
+                    <p class="desc">A Geographic Information Systems (GIS) is a computer-based tool that allows you to
+                        collect, analyse and connect location-based information and visualise this data on a map. With
+                        this system, you can analyse geospatial information to gain insights and solve complex spatial
+                        problems.</p>
+                    <h4>What We Do</h4>
+                    <ol>
+                        <li>Training & Education</li>
+                        <li>Software Development & Consultancy</li>
+                        <li>Software Support, Maintenance & Hosting</li>
+                    </ol>
+                    <div class="buttons" style="padding-top: .9em; align-content: center;">
+                        <a href="https://www.google.com"><button class="button add">Join Today</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p style="font-size: .75em;">Product for <a href="https://kartoza.com/en/"> Kartoza Test</a> ♡
+    </footer>
+</div>
+
+
+</body>
+</html>

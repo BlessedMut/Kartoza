@@ -2,4 +2,4 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def home(request):
-    return HttpResponse('<h1>Home Panel</h1>')
+    return render(request, 'profiles/home.html', {})
