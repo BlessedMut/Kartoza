@@ -1,8 +1,9 @@
 from django.urls import path
 
-from . import views
+from . import views as profile_views
 
 urlpatterns = [
-    path('', views.root, name="profiles-root"),
-    path('home/', views.home, name="profiles-home"),
+    path('', profile_views.root, name="profiles-root"),
+    path('user/home/', profile_views.home, name="profiles-home"),
+    path('user/profile/', profile_views.profile, name="profiles-settings"),
 ]

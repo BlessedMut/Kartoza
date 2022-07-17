@@ -9,6 +9,10 @@ class Profile(models.Model):
     phone_number = models.CharField(max_length=15)
     location = models.PointField(default='POINT(0 0)', srid=4326)
     date_created = models.DateTimeField(default=timezone.now)
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+
+    def __str__(self):
+        return f'{self.user.username} Profile'
 
     @property
     def longitude(self):

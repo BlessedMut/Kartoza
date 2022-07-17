@@ -32,21 +32,21 @@
             <ul class="nav navbar-nav ms-auto w-100 justify-content-end">
                 {% if user.is_authenticated %}
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="{% url 'profiles-home' %}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/profiles">My Profile</a>
+                        <a class="nav-link" href="{% url 'profiles-settings' %}">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                     </li>
 
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/register">Sign Up</a>
+                        <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
                     </li>
 
                 {% endif %}
@@ -55,12 +55,23 @@
     </div>
 </nav>
 <body>
+<div class="container">
+    <div class="row my-3">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+</div>
 {% block content %}
-    {% if messages %}
-        {% for message in messages %}
-          <script>M.toast({html: "{{message}}", classes: 'blue rounded', displayLength:2000});</script>
-        {% endfor %}
-    {% endif %}
+
 {% endblock %}
 
 <!-- JS, Popper.js, and jQuery -->
