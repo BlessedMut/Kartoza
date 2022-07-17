@@ -1,5 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+
+
+def root(request):
+    return render(request, 'profiles/index.html', {})
+
 
 def home(request):
-    return render(request, 'profiles/home.html', {})
+    return render(request, 'profiles/home/home.html', {'title': 'Home'})
