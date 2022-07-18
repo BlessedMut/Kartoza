@@ -1,6 +1,7 @@
 import folium as folium
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from folium import plugins
 
@@ -19,15 +20,16 @@ def home(request):
     location_details = location_details[0]
     location_details['longitude'] = location_details['location'][0]
     location_details['latitude'] = location_details['location'][1]
-    map1 = folium.Map(zoom_start=4, min_zoom=3, max_zoom=8,
-                      attr='Mapbox attribution')
+    map1 = folium.Map(location=[-26.195246, 28.034088], zoom_start=10, min_zoom=3, max_zoom=18,
+                      attr='Mapbox attribution', tiles="OpenStreetMap")
     icon = plugins.BeautifyIcon(icon="marker")
 
     folium.Marker(
         location=[location_details['latitude'], location_details['longitude']],
-        popup=f"<img height='300' width='300' src='{{ user.profile.image.url }}'<br><p>Address: {location_details['address']}</p>"
-              f"<br>Lon: {location_details['longitude']}<br>Lat: {location_details['latitude']}<br>"
-              f"Last Update: {location_details['date_created']}").add_to(
+        popup=f"<img height='0' width='300'><h5 align='center'><strong><b>{request.user.first_name} {request.user.last_name}'s Profile</h5><p></b><hr>Address</strong>: {request.user.profile.address}</p>"
+              f"<hr><strong>Coordinates</strong>: {location_details['latitude']} {location_details['longitude']}"
+              f"<br><hr><strong>Phone Number</strong>: {request.user.profile.phone_number}"
+              f"<br><hr><strong>Last Updated</strong>: {request.user.profile.date_created}").add_to(
         map1)
 
     map1 = map1._repr_html_()
@@ -41,23 +43,30 @@ def home(request):
 @login_required
 def all_profiles(request):
     location_details = list(
-        Profile.objects.all().values('user__username', 'address', 'phone_number', 'location'))
+        Profile.objects.all().values())
     for i in range(len(location_details)):
         location_details[i]['longitude'] = location_details[i]['location'][0]
         location_details[i]['latitude'] = location_details[i]['location'][1]
 
-    data_list, address_list = [], []
+    data_list, address_list, other = [], [], []
     for i in range(len(location_details)):
+        other.append(
+            [location_details[i]['phone_number'], location_details[i]['date_created'],
+             User.objects.filter(pk=location_details[i]['user_id']).values()[0]['first_name'],
+             User.objects.filter(pk=location_details[i]['user_id']).values()[0]['last_name']])
         data_list.append([location_details[i]['longitude'], location_details[i]['latitude']])
         address_list.append(location_details[i]['address'])
 
-    map1 = folium.Map(location=[4.133, 22.450], zoom_start=4, min_zoom=2, max_zoom=8,
-                      attr='Mapbox attribution')
+    map1 = folium.Map(location=[-26.195246, 28.034088], zoom_start=10, min_zoom=2, max_zoom=18,
+                      attr='Mapbox attribution', tiles="OpenStreetMap")
     icon = plugins.BeautifyIcon(icon="marker")
     for i in range(0, len(data_list)):
         folium.Marker(
             location=[data_list[i][1], data_list[i][0]],
-            popup=f"<p>Address: {address_list[i]}</p><a href="">**<button style='background-color:green;color:white;outline:none;'>Edit Profile</button></a>").add_to(
+            popup=f"<img height='0' width='300'><h5 align='center'><strong><b>{other[i][2]} {other[i][3]}'s Profile</h5><p></b><hr>Address</strong>: {address_list[i]}</p>"
+                  f"<hr><strong>Coordinates</strong>: {data_list[i][0]} {data_list[i][1]}"
+                  f"<br><hr><strong>Phone Number</strong>: {other[i][0]}"
+                  f"<br><hr><strong>Last Updated</strong>: {other[i][1]}").add_to(
             map1)
 
     map1 = map1._repr_html_()
