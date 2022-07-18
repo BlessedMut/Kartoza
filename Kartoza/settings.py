@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'profiles.apps.ProfilesConfig',
     'user.apps.AuthConfig',
     'crispy_forms',
+    'mapbox_location_field',
+    'location_field.apps.DefaultConfig',
     'crispy_bootstrap5',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+    'django.contrib.gis.db.backends.postgis',
 ]
 
 MIDDLEWARE = [
@@ -83,14 +86,25 @@ WSGI_APPLICATION = 'Kartoza.wsgi.application'
 #     }
 # }
 
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.contrib.gis.db.backends.postgis',
+#         'NAME': 'kartoza',
+#         'USER': 'postgres',
+#         'PASSWORD': '@Support!999',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'kartoza',
-        'USER': 'postgres',
-        'PASSWORD': '@Support!999',
-        'HOST': '127.0.0.1',
+        'NAME': 'kartaza_db',
+        'USER': 'kartaza',
+        'PASSWORD': '@Support1999',
+        'HOST': 'postgresql-kartaza.alwaysdata.net',
         'PORT': '5432',
     }
 }
@@ -129,11 +143,12 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static'
+    BASE_DIR / 'static',
+    BASE_DIR / 'media',
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = ''
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -147,3 +162,13 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 LOGIN_URL = 'login'
+
+LOCATION_FIELD_PATH = STATIC_URL + 'location_field'
+
+LOCATION_FIELD = {
+    'map.provider': 'google',
+    'map.zoom': 13,
+
+    'search.provider': 'google',
+    'search.suffix': '',
+}

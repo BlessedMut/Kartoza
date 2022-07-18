@@ -31,15 +31,30 @@
         <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
             <ul class="nav navbar-nav ms-auto w-100 justify-content-end">
                 {% if user.is_authenticated %}
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'profiles-home' %}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'profiles-settings' %}">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                    </li>
+                    {% if request.user.is_superuser %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'profiles-home' %}">Home</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'profiles-all' %}">All Profiles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'profiles-settings' %}">My Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'profiles-home' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'profiles-settings' %}">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                    {% endif %}
 
                 {% else %}
                     <li class="nav-item">

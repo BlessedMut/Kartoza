@@ -1,7 +1,128 @@
 {% extends 'profiles/home/base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block content %}
     <div class="container">
-        <h1>Profile</h1>
+        <section style="background-color: #eee;">
+            <div class="container py-4">
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card mb-4">
+                            <div class="card-body text-center">
+                                <img height="300" width="300" src="{{ user.profile.image.url }}"
+                                     class="rounded-circle img-fluid" style="width: 200px;">
+                                <h5 class="my-3">{{ user }}</h5>
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Email</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">{{ user.email }}</p>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Phone</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">{{ user.profile.phone_number }}</p>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Mobile</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">{{ user.profile.date_created }}</p>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Address</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">{{ user.profile.address }}</p>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Location</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">{{ user.profile.location }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="my-3" >Edit Profile</h5>
+                            </div>
+                            <div class="card-body">
+                                <form method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {{ u_form|crispy }}
+                                    {{ p_form|crispy }}
+{#                                    {% for field in u_form %}#}
+{#                                        <div class="form-group">#}
+{#                                            {{ field.label_tag }}#}
+{#                                            <input#}
+{#                                                    type="{% if 'password' in field.label_tag %}password{% else %}text{% endif %}"#}
+{#                                                    name="{{ field.html_name }}"#}
+{#                                                    class="form-control"#}
+{#                                                    maxlength="{% if 'username' in field.label_tag %}150{% endif %}"#}
+{#                                                    id="{{ field.id_for_label }}"#}
+{#                                                    required#}
+{#                                            />#}
+{#                                        </div>#}
+{#                                        {% if field.errors %} {% for error in field.errors %}#}
+{#                                            <p style="font-size: 13px;">#}
+{#                                                {{ error|escape }}#}
+{#                                            </p>#}
+{#                                        {% endfor %} {% endif %} {% endfor %}#}
+{#                                    {% for field in p_form %}#}
+{#                                        <div class="form-group">#}
+{#                                            {{ field.label_tag }}#}
+{#                                            <input#}
+{#                                                    type="{% if 'password' in field.label_tag %}password{% else %}text{% endif %}"#}
+{#                                                    name="{{ field.html_name }}"#}
+{#                                                    class="form-control"#}
+{#                                                    maxlength="{% if 'username' in field.label_tag %}150{% endif %}"#}
+{#                                                    id="{{ field.id_for_label }}"#}
+{#                                                    required#}
+{#                                            />#}
+{#                                        </div>#}
+{#                                        {% if field.errors %} {% for error in field.errors %}#}
+{#                                            <p style="font-size: 13px;">#}
+{#                                                {{ error|escape }}#}
+{#                                            </p>#}
+{#                                        {% endfor %} {% endif %} {% endfor %}#}
+{#                                    <br>#}
+                                    <div class="form-group">
+                                        <button type="submit" class="form-control btn btn-primary rounded submit px-3">
+                                            Update
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
 {% endblock content %}
